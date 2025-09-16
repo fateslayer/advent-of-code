@@ -1,1 +1,13 @@
-/target
+/target/
+/Cargo.lock
+
+# Input files and test data
+*.txt
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
