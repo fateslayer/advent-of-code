@@ -2,7 +2,7 @@
 /Cargo.lock
 
 # Input files and test data
-*.txt
+inputs/
 
 # IDE files
 .vscode/
