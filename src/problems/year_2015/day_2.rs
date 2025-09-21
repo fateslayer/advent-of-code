@@ -5,7 +5,8 @@ use itertools::Itertools;
 pub fn solve(input: &str) {
     let lines = input.lines();
 
-    let mut total: i32 = 0;
+    let mut p1_total: i32 = 0;
+    let mut p2_total: i32 = 0;
 
     for line in lines {
         let arr: Vec<i32> = line.split("x").map(|s| s.parse().unwrap()).sorted().collect();
@@ -14,17 +15,21 @@ pub fn solve(input: &str) {
         let y = arr.get(1).unwrap();
         let z = arr.get(2).unwrap();
 
-        // let xy = x * y;
-        // let yz = y * z;
-        // let xz = x * z;
+        let xy = x * y;
+        let yz = y * z;
+        let xz = x * z;
 
-        // // let min = xy.min(yz.min(xz));
-        // // let area = (2 * xy) + (2 * yz) + (2 * xz);
+        let min = xy.min(yz.min(xz));
+        let area = (2 * xy) + (2 * yz) + (2 * xz);
+
+        p1_total += min + area;
+
         let ribbon = (x * 2) + (y * 2);
         let bow = x * y * z;
 
-        total += ribbon + bow;
+        p2_total += ribbon + bow;
     }
 
-    println!("{}", total);
+    println!("Part 1: {}", p1_total);
+    println!("Part 2: {}", p2_total);
 }

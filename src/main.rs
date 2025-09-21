@@ -8,10 +8,10 @@ fn main() {
     let year: u16;
     let day: u8;
 
-    if let Some(path_str) = args.get(1) {
-        input_path = path_str;
+    if let Some(day_str) = args.get(1) {
+        day = day_str.parse().unwrap();
     } else {
-        input_path = "inputs/test.txt";
+        day = 1;
     }
 
     if let Some(year_str) = args.get(2) {
@@ -20,11 +20,11 @@ fn main() {
         year = 2015;
     }
 
-    if let Some(day_str) = args.get(3) {
-        day = day_str.parse().unwrap();
+    if let Some(path_str) = args.get(3) {
+        input_path = path_str;
     } else {
-        day = 1;
-    }
+        input_path = "inputs/test.txt";
+    }    
 
-    run_solution(input_path, year, day);
+    run_solution(day, year, input_path);
 }
