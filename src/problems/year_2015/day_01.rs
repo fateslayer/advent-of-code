@@ -7,11 +7,13 @@ pub fn solve(input: String) {
         match c {
             '(' => count += 1,
             ')' => count -= 1,
-            _ => panic!("Unsupported char"),
+            _ => continue,
         }
 
+        // Part 2
         if count == -1 {
             println!("Basement: {}", i + 1);
+            return;
         }
     }
 
