@@ -2,6 +2,7 @@
 
 pub fn solve(input: String) {
     let mut count = 0;
+    let mut basement: Option<usize> = None;
 
     for (i, c) in input.chars().enumerate() {
         match c {
@@ -10,12 +11,11 @@ pub fn solve(input: String) {
             _ => continue,
         }
 
-        // Part 2
-        if count == -1 {
-            println!("Basement: {}", i + 1);
-            return;
+        if count == -1 && basement.is_none() {
+            basement = Some(i + 1);
         }
     }
-
-    println!("Count: {}", count);
+    
+    println!("Part 1: {}", count);
+    println!("Part 2: {:?}", basement);
 }
