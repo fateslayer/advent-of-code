@@ -4,14 +4,14 @@ use advent_of_code::run_solution;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let input_path: String;
+    let input_path: &str;
     let year: u16;
     let day: u8;
 
     if let Some(path_str) = args.get(1) {
-        input_path = path_str.to_string();
+        input_path = path_str;
     } else {
-        input_path = String::from("inputs/test.txt");
+        input_path = "inputs/test.txt";
     }
 
     if let Some(year_str) = args.get(2) {

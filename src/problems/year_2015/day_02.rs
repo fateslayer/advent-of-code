@@ -2,7 +2,7 @@
 
 use itertools::Itertools;
 
-pub fn solve(input: String) {
+pub fn solve(input: &str) {
     let lines = input.lines();
 
     let mut total: i32 = 0;

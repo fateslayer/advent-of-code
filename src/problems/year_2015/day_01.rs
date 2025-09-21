@@ -1,6 +1,6 @@
 // Problem: https://adventofcode.com/2015/day/1
 
-pub fn solve(input: String) {
+pub fn solve(input: &str) {
     let mut count = 0;
 
     for (i, c) in input.chars().enumerate() {
