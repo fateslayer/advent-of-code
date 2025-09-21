@@ -1,10 +1,6 @@
 // Problem: https://adventofcode.com/2015/day/1
 
-use std::fs;
-
-pub fn solve() {
-    let input = fs::read_to_string("inputs/2015/01.txt").unwrap();
-
+pub fn solve(input: String) {
     let mut count = 0;
 
     for (i, c) in input.chars().enumerate() {

@@ -1,11 +1,8 @@
 // Problem: https://adventofcode.com/2015/day/2
 
-use std::fs;
 use itertools::Itertools;
 
-pub fn solve() {
-    let input = fs::read_to_string("inputs/2015/02.txt").unwrap();
-
+pub fn solve(input: String) {
     let lines = input.lines();
 
     let mut total: i32 = 0;
@@ -17,12 +14,12 @@ pub fn solve() {
         let y = arr.get(1).unwrap();
         let z = arr.get(2).unwrap();
 
-        let xy = x * y;
-        let yz = y * z;
-        let xz = x * z;
+        // let xy = x * y;
+        // let yz = y * z;
+        // let xz = x * z;
 
-        let min = xy.min(yz.min(xz));
-        let area = (2 * xy) + (2 * yz) + (2 * xz);
+        // // let min = xy.min(yz.min(xz));
+        // // let area = (2 * xy) + (2 * yz) + (2 * xz);
         let ribbon = (x * 2) + (y * 2);
         let bow = x * y * z;
 
