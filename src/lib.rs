@@ -11,6 +11,7 @@ pub fn run_solution(day: u8, year: u16, input_path: &str) {
             match (year, day) {
                 (2015, 1) => year_2015::day_1::solve(&input),
                 (2015, 2) => year_2015::day_2::solve(&input),
+                (2015, 3) => year_2015::day_3::solve(&input),
                 _ => panic!("Solution not found for year {} day {}", year, day)
             }
         },
