@@ -1,3 +1,5 @@
+// Problem: https://adventofcode.com/2015/day/3
+
 use std::collections::HashSet;
 
 pub fn solve(input: &str) {
