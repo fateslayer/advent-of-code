@@ -9,22 +9,17 @@ pub fn solve(input: &str) {
 }
 
 fn solve_part1(input: &str) -> i32 {
-    let mut count = 0;
-
-    for c in input.chars() {
+    input.chars().fold(0, |count, c| {
         match c {
-            '(' => count += 1,
-            ')' => count -= 1,
-            _ => continue,
+            '(' => count + 1,
+            ')' => count - 1,
+            _ => count,
         }
-    }
-
-    count
+    })
 }
 
 fn solve_part2(input: &str) -> Option<usize> {
     let mut count = 0;
-    let mut basement: Option<usize> = None;
 
     for (i, c) in input.chars().enumerate() {
         match c {
@@ -33,11 +28,10 @@ fn solve_part2(input: &str) -> Option<usize> {
             _ => continue,
         }
 
-        if count == -1 && basement.is_none() {
-            basement = Some(i + 1);
-            break;
+        if count == -1 {
+            return Some(i + 1);
         }
     }
 
-    basement
+    None
 }

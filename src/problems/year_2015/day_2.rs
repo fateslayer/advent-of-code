@@ -1,19 +1,20 @@
 // Problem: https://adventofcode.com/2015/day/2
 
-use itertools::Itertools;
-
 pub fn solve(input: &str) {
-    let lines = input.lines();
+    let part1 = solve_part1(input);
+    let part2 = solve_part2(input);
 
-    let mut p1_total: i32 = 0;
-    let mut p2_total: i32 = 0;
+    println!("Part 1: {}", part1);
+    println!("Part 2: {}", part2);
+}
 
-    for line in lines {
-        let arr: Vec<i32> = line.split("x").map(|s| s.parse().unwrap()).sorted().collect();
+fn parse_dimensions(line: &str) -> [i32; 3] {
+    line.split("x").map(|s| s.parse().unwrap()).collect::<Vec<_>>().try_into().unwrap()
+}
 
-        let x = arr.get(0).unwrap();
-        let y = arr.get(1).unwrap();
-        let z = arr.get(2).unwrap();
+fn solve_part1(input: &str) -> i32 {
+    input.lines().fold(0, |total, line| {
+        let [x, y, z] = parse_dimensions(line);
 
         let xy = x * y;
         let yz = y * z;
@@ -22,14 +23,20 @@ pub fn solve(input: &str) {
         let min = xy.min(yz.min(xz));
         let area = (2 * xy) + (2 * yz) + (2 * xz);
 
-        p1_total += min + area;
+        total + min + area
+    })
+}
+
+fn solve_part2(input: &str) -> i32 {
+    input.lines().fold(0, |total, line| {
+        let mut dimensions = parse_dimensions(line);
+        dimensions.sort();
+
+        let [x, y, z] = dimensions;
 
         let ribbon = (x * 2) + (y * 2);
         let bow = x * y * z;
 
-        p2_total += ribbon + bow;
-    }
-
-    println!("Part 1: {}", p1_total);
-    println!("Part 2: {}", p2_total);
+        total + ribbon + bow
+    })
 }
