@@ -8,10 +8,6 @@ pub fn solve(input: &str) {
     println!("Part 2: {}", part2);
 }
 
-fn parse_dimensions(line: &str) -> [i32; 3] {
-    line.split("x").map(|s| s.parse().unwrap()).collect::<Vec<_>>().try_into().unwrap()
-}
-
 fn solve_part1(input: &str) -> i32 {
     input.lines().fold(0, |total, line| {
         let [x, y, z] = parse_dimensions(line);
@@ -39,4 +35,8 @@ fn solve_part2(input: &str) -> i32 {
 
         total + ribbon + bow
     })
+}
+
+fn parse_dimensions(line: &str) -> [i32; 3] {
+    line.split("x").map(|s| s.parse().unwrap()).collect::<Vec<_>>().try_into().unwrap()
 }
