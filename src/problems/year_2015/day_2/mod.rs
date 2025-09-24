@@ -1,6 +1,6 @@
+mod common;
 mod part1;
 mod part2;
-mod common;
 
 pub fn solve(input: &str) {
     let part1_result = part1::solve(input);

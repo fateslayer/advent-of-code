@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use super::common::move_position;
+use std::collections::HashSet;
 
 pub fn solve(input: &str) -> usize {
     let mut visited = HashSet::new();

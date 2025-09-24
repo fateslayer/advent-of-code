@@ -1,10 +1,9 @@
-use std::env;
 use advent_of_code::run_solution;
+use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let input_path: &str;
     let year: u16;
     let day: u8;
 
@@ -20,11 +19,5 @@ fn main() {
         year = 2015;
     }
 
-    if let Some(path_str) = args.get(3) {
-        input_path = path_str;
-    } else {
-        input_path = "inputs/test.txt";
-    }    
-
-    run_solution(day, year, input_path);
+    run_solution(day, year);
 }
