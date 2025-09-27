@@ -1,6 +1,6 @@
 # Advent of Code Solutions
 
-A Rust implementation of solutions for [Advent of Code](https://adventofcode.com/) programming challenges.
+A Rust implementation of solutions for [Advent of Code](https://adventofcode.com) programming challenges.
 
 ## Overview
 
