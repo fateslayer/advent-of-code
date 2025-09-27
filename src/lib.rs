@@ -14,6 +14,7 @@ pub fn run_solution(day: u8, year: u16) {
             (2015, 3) => year_2015::day_3::solve(&input),
             (2015, 4) => year_2015::day_4::solve(&input),
             (2015, 5) => year_2015::day_5::solve(&input),
+            (2015, 6) => year_2015::day_6::solve(&input),
             _ => panic!("Solution not found for year {} day {}", year, day),
         },
         Err(e) => panic!("Failed to read input file: {}", e),
