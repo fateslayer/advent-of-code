@@ -1,6 +1,6 @@
 use fancy_regex::Regex;
 
-pub fn solve(input: &str) -> i32 {
+pub fn solve(input: &str) -> usize {
     const SIZE: usize = 1000;
     let mut grid = [[false; SIZE]; SIZE];
     let re = Regex::new(r"(turn on|turn off|toggle) (\d+),(\d+) through (\d+),(\d+)").unwrap();
@@ -26,15 +26,5 @@ pub fn solve(input: &str) -> i32 {
         }
     }
 
-    let mut turned_on: i32 = 0;
-
-    for row in grid {
-        for item in row {
-            if item {
-                turned_on += 1;
-            }
-        }
-    }
-
-    turned_on
+    grid.iter().flatten().filter(|&&light| light).count()
 }
