@@ -1,7 +1,10 @@
+use crate::problems::year_2015::day_7::common::parse_instruction;
+
+use super::common::Instruction;
 use fancy_regex::Regex;
 use std::collections::HashMap;
 
-fn get_io_map(input: &str) -> HashMap<String, String> {
+fn get_io_map(input: &str) -> HashMap<String, Instruction> {
     let input_re = Regex::new(r"(.+) -> ([a-z]+)").unwrap();
 
     let mut map = HashMap::new();
@@ -10,8 +13,9 @@ fn get_io_map(input: &str) -> HashMap<String, String> {
         if let Ok(Some(captures)) = input_re.captures(line) {
             let input = captures[1].to_string();
             let wire = captures[2].to_string();
+            let instruction = parse_instruction(&input);
 
-            map.insert(wire, input);
+            map.insert(wire, instruction);
         }
     }
 
@@ -20,7 +24,7 @@ fn get_io_map(input: &str) -> HashMap<String, String> {
 
 fn find_value(
     signal: &str,
-    map: &HashMap<String, String>,
+    map: &HashMap<String, Instruction>,
     cache: &mut HashMap<String, u32>,
 ) -> u32 {
     if let Some(&cached) = cache.get(signal) {
@@ -32,51 +36,24 @@ fn find_value(
     }
 
     let input = map.get(signal).unwrap();
-    let result: u32;
 
-    let num_re = Regex::new(r"^\d+$").unwrap();
-    let string_re = Regex::new(r"^[a-z]+$").unwrap();
-    let not_re = Regex::new(r"^NOT ([a-z]+)$").unwrap();
-    let or_re = Regex::new(r"^(.+) OR (.+)$").unwrap();
-    let and_re = Regex::new(r"^(.+) AND (.+)$").unwrap();
-    let lshift_re = Regex::new(r"^(.+) LSHIFT (.+)$").unwrap();
-    let rshift_re = Regex::new(r"^(.+) RSHIFT (.+)$").unwrap();
-
-    if let Ok(Some(captures)) = num_re.captures(input) {
-        let value = &captures[0];
-
-        result = value.parse().unwrap();
-    } else if let Ok(Some(captures)) = string_re.captures(input) {
-        let value = &captures[0];
-
-        result = find_value(value, map, cache);
-    } else if let Ok(Some(captures)) = not_re.captures(input) {
-        let value = &captures[1];
-
-        result = (!find_value(value, map, cache)) & 0xFFFF;
-    } else if let Ok(Some(captures)) = or_re.captures(input) {
-        let left = &captures[1];
-        let right = &captures[2];
-
-        result = find_value(left, map, cache) | find_value(right, map, cache);
-    } else if let Ok(Some(captures)) = and_re.captures(input) {
-        let left = &captures[1];
-        let right = &captures[2];
-
-        result = find_value(left, map, cache) & find_value(right, map, cache);
-    } else if let Ok(Some(captures)) = lshift_re.captures(input) {
-        let left = &captures[1];
-        let right = &captures[2];
-
-        result = find_value(left, map, cache) << find_value(right, map, cache);
-    } else if let Ok(Some(captures)) = rshift_re.captures(input) {
-        let left = &captures[1];
-        let right = &captures[2];
-
-        result = find_value(left, map, cache) >> find_value(right, map, cache);
-    } else {
-        panic!("unsupported input: {}", input);
-    }
+    let result: u32 = match input {
+        Instruction::Value(value) => *value,
+        Instruction::Wire(value) => find_value(&value, map, cache),
+        Instruction::Not(value) => (!find_value(&value, map, cache)) & 0xFFFF,
+        Instruction::And(left, right) => {
+            find_value(&left, map, cache) & find_value(&right, map, cache)
+        }
+        Instruction::Or(left, right) => {
+            find_value(&left, map, cache) | find_value(&right, map, cache)
+        }
+        Instruction::LShift(left, right) => {
+            find_value(&left, map, cache) << find_value(&right, map, cache)
+        }
+        Instruction::RShift(left, right) => {
+            find_value(&left, map, cache) >> find_value(&right, map, cache)
+        }
+    };
 
     cache.insert(signal.to_string(), result);
 
