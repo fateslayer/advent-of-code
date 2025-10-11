@@ -1,24 +1,5 @@
-use super::common::{Instruction, parse_instruction};
-use fancy_regex::Regex;
+use super::common::{Instruction, get_instruction_map};
 use std::collections::HashMap;
-
-fn get_io_map(input: &str) -> HashMap<String, Instruction> {
-    let input_re = Regex::new(r"(.+) -> ([a-z]+)").unwrap();
-
-    let mut map = HashMap::new();
-
-    for line in input.lines() {
-        if let Ok(Some(captures)) = input_re.captures(line) {
-            let input = captures[1].to_string();
-            let wire = captures[2].to_string();
-            let instruction = parse_instruction(&input);
-
-            map.insert(wire, instruction);
-        }
-    }
-
-    map
-}
 
 fn find_value(
     signal: &str,
@@ -59,7 +40,7 @@ fn find_value(
 }
 
 pub fn solve(input: &str) -> u32 {
-    let map = get_io_map(input);
+    let map = get_instruction_map(input);
     let mut cache: HashMap<String, u32> = HashMap::new();
     find_value("a", &map, &mut cache)
 }

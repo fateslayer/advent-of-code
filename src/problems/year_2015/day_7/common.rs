@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use fancy_regex::Regex;
 
 pub enum Instruction {
@@ -10,7 +12,7 @@ pub enum Instruction {
     RShift(String, String),
 }
 
-pub fn parse_instruction(input: &str) -> Instruction {
+fn parse_instruction(input: &str) -> Instruction {
     let num_re = Regex::new(r"^\d+$").unwrap();
     let string_re = Regex::new(r"^[a-z]+$").unwrap();
     let not_re = Regex::new(r"^NOT ([a-z]+)$").unwrap();
@@ -52,4 +54,22 @@ pub fn parse_instruction(input: &str) -> Instruction {
     } else {
         panic!("unsupported input: {}", input);
     }
+}
+
+pub fn get_instruction_map(input: &str) -> HashMap<String, Instruction> {
+    let input_re = Regex::new(r"(.+) -> ([a-z]+)").unwrap();
+
+    let mut map = HashMap::new();
+
+    for line in input.lines() {
+        if let Ok(Some(captures)) = input_re.captures(line) {
+            let input = captures[1].to_string();
+            let wire = captures[2].to_string();
+            let instruction = parse_instruction(&input);
+
+            map.insert(wire, instruction);
+        }
+    }
+
+    map
 }
