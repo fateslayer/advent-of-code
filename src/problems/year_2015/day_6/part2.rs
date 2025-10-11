@@ -1,4 +1,4 @@
-use fancy_regex::Regex;
+use regex::Regex;
 
 pub fn solve(input: &str) -> usize {
     const SIZE: usize = 1000;
@@ -6,7 +6,7 @@ pub fn solve(input: &str) -> usize {
     let re = Regex::new(r"(turn on|turn off|toggle) (\d+),(\d+) through (\d+),(\d+)").unwrap();
 
     for line in input.lines() {
-        if let Ok(Some(captures)) = re.captures(line) {
+        if let Some(captures) = re.captures(line) {
             let action = &captures[1];
             let x1: usize = captures[2].parse().unwrap();
             let y1: usize = captures[3].parse().unwrap();
