@@ -1,6 +1,4 @@
-use crate::problems::year_2015::day_7::common::parse_instruction;
-
-use super::common::Instruction;
+use super::common::{Instruction, parse_instruction};
 use fancy_regex::Regex;
 use std::collections::HashMap;
 
